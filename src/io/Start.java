@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import cities.City;
 import clock.Clock;
 import gui.GUI;
+import gui.Updater;
 
 /**
  * 
@@ -19,12 +20,55 @@ public class Start {
 	
 	private static GUI gui;
 	
+	private static Updater updater;
+
+	public static String version;
+	
 	public static void main(String args[]) {
 		//Load our city data before we show the GUI!
 		loadCities();
 		System.out.println("Cities loaded, initialization of start up information loaded...");
 		
-		//Load up the GUI
+		//Loading the updater
+		updater = new Updater(400,75);
+		System.out.println("Opening updater...");
+		
+		//Check the user's version
+		Version.checkVersion();
+	}
+	
+	/**
+	 * Load up our cities
+	 */
+	public static void loadCities() {
+		cities.add(new City("Columbia, Missouri","https://www.accuweather.com/en/us/columbia-mo/65201/weather-forecast/329434","CST"));
+		cities.add(new City("Cape Town, South Africa","https://www.accuweather.com/en/za/cape-town/306633/weather-forecast/306633","Africa/Cairo"));
+		
+		for(City city : cities) {
+			//Lets get some info before our thread kicks in so our GUI has something to display
+			city.updateWeather();
+			city.updateTime();
+		}
+	}
+
+	/**
+	 * Getter for GUI
+	 * @return
+	 */
+	public static GUI getGUI() {
+		return gui;
+	}
+	
+	/**
+	 * Getter for Updater
+	 */
+	public static Updater getUpdater() {
+		return updater;
+	}
+	
+	public static void startClock() {
+			
+		//Loading the GUI
 		gui = new GUI(500,400);
 		System.out.println("GUI loaded...");
 		
@@ -50,28 +94,6 @@ public class Start {
 		});
 		
 		System.out.println("Opening application...");
-	}
-	
-	/**
-	 * Load up our cities
-	 */
-	public static void loadCities() {
-		cities.add(new City("Columbia, Missouri","https://www.accuweather.com/en/us/columbia-mo/65201/weather-forecast/329434","CST"));
-		cities.add(new City("Cape Town, South Africa","https://www.accuweather.com/en/za/cape-town/306633/weather-forecast/306633","Africa/Cairo"));
-		
-		for(City city : cities) {
-			//Lets get some info before our thread kicks in so our GUI has something to display
-			city.updateWeather();
-			city.updateTime();
-		}
-	}
-
-	/**
-	 * Getter for GUI
-	 * @return
-	 */
-	public static GUI getGUI() {
-		return gui;
 	}
 	
 }

@@ -51,24 +51,7 @@ public class GUI extends JFrame{
 	 * @param height
 	 */
 	public GUI(int width, int height) {
-		setTitle("Weather/Time Clock");
-		setResizable(false);
-		setSize(width,height);
-		
-		//Forces our frame and content size into correct dimensions
-		getContentPane().setPreferredSize(new Dimension(width,height));
-		pack();
-		
-		//Center frame
-		setLocationRelativeTo(null);
-		
-		//Set operation on close
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		//Open up!
-		setVisible(true);
-		validate();
-		
+		setTitle("Weather/Time Clock - V" + Start.version);
 		Font customFont = null;
 		
 		try {
@@ -148,6 +131,23 @@ public class GUI extends JFrame{
 
 		
 		refresh();
+		
+		setResizable(false);
+		setSize(width,height);
+		
+		//Center frame
+		setLocationRelativeTo(null);
+		
+		//Set operation on close
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		// Forces our frame and content size into correct dimensions
+		getContentPane().setPreferredSize(new Dimension(width, height));
+		pack();
+		
+		//Open up!
+		setVisible(true);
+		validate();
 		
 	}
 	
@@ -237,7 +237,5 @@ public class GUI extends JFrame{
 		locations.get(counter*5 + 3).setForeground(color);
 		locations.get(counter*5 + 4).setForeground(color);
 	}
-	
-	
-	
+		
 }
