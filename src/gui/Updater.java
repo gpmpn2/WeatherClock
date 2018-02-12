@@ -2,10 +2,10 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-/*import java.awt.Font;
+import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.io.IOException;*/
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -46,7 +46,7 @@ public class Updater extends JFrame{
 		setVisible(true);
 		validate();
 		
-		/*Font customFont = null;
+		Font customFont = null;
 		
 		try {
 		    //create the font to use. Specify the size!
@@ -58,13 +58,14 @@ public class Updater extends JFrame{
 		    e.printStackTrace();
 		} catch(FontFormatException e) {
 		    e.printStackTrace();
-		}*/
+		}
 		
 		JPanel panel = (JPanel) getContentPane();
 		
 		updateText = new JLabel("", SwingConstants.CENTER);
 		updateText.setText("Checking for updates...");
 		updateText.setBounds(125, 25, 150, 25); 
+		updateText.setFont(new Font(customFont.getName(), Font.TRUETYPE_FONT, 12));
 		panel.add(updateText);
 		
 		progressBar = new JProgressBar();
@@ -79,6 +80,7 @@ public class Updater extends JFrame{
 		
 		progressText = new JLabel("", SwingConstants.CENTER);
 		progressText.setText("");
+		progressText.setFont(new Font(customFont.getName(), Font.TRUETYPE_FONT, 12));
 		progressText.setBounds(175, 0, 50, 25);
 		progressText.setForeground(Color.DARK_GRAY);
 		panel.add(progressText);
