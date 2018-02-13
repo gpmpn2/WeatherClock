@@ -16,10 +16,12 @@ import javax.swing.SwingConstants;
 public class Updater extends JFrame{
 
 	/**
+	 * @author Grant
+	 * 2/12/18
 	 * 
+	 * Responsible for the UI of the updater
 	 */
 	private static final long serialVersionUID = 8809506503296735271L;
-	public static boolean finishedUpdate = false;
 	
 	private JLabel updateText;
 	

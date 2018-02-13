@@ -13,10 +13,20 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 
+/**
+ * 
+ * @author Grant
+ * 2/12/18
+ * Responsible for version control (updates)
+ */
 public class Version {
 
+	//URL Path to webhost
 	public static final String URL_PATH = "http://ec2-18-221-227-162.us-east-2.compute.amazonaws.com/WeatherApp/";
 	
+	/**
+	 * Checks the webhost's version against you're personal copies
+	 */
 	public static void checkVersion(){
 		URL oracle;
 		try {
@@ -50,6 +60,9 @@ public class Version {
 		}
 	}
 
+	/**
+	 * Updates our current jar to the newest version on the webhost
+	 */
 	private static void updateWeatherApp() {
 		try {
 			File jar = new File(Version.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
@@ -63,7 +76,7 @@ public class Version {
 			File writeJar = new File(jar.getPath());
 			OutputStream out = new FileOutputStream(writeJar);
 			BufferedOutputStream bufferOut = new BufferedOutputStream(out);
-			byte buffer[] = new byte[1024];
+			byte buffer[] = new byte[1024];//1024 is a slower download speed (research into maybe 8192 or even 13-14k?)
 			
 			int size = conn.getContentLength();
 			

@@ -66,8 +66,10 @@ public class Start {
 		return updater;
 	}
 	
+	/**
+	 * Starts our clock if the Application is up to date
+	 */
 	public static void startClock() {
-			
 		//Loading the GUI
 		gui = new GUI(500,400);
 		System.out.println("GUI loaded...");
