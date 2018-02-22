@@ -35,6 +35,7 @@ public class Start {
 		
 		//Check the user's version
 		Version.checkVersion();
+		//graph = new Graph(100,200);
 	}
 	
 	/**
@@ -47,8 +48,10 @@ public class Start {
 		for(City city : cities) {
 			//Lets get some info before our thread kicks in so our GUI has something to display
 			city.updateWeather();
+			city.getPreviousTemperatures().add(city.getCityWeather().isFarenheit() ? city.getCityWeather().getCurrentTemperature() : city.getCityWeather().getCurrentTemperatureConversion());
 			city.updateTime();
 		}
+		
 	}
 
 	/**
@@ -66,6 +69,14 @@ public class Start {
 		return updater;
 	}
 	
+	public static void updateGraphs() {
+		int count = 0;
+		for(City city : cities) {
+			getGUI().updateGraph(city, count);
+			count++;
+		}
+	}
+	
 	/**
 	 * Starts our clock if the Application is up to date
 	 */
@@ -73,6 +84,9 @@ public class Start {
 		//Loading the GUI
 		gui = new GUI(500,400);
 		System.out.println("GUI loaded...");
+		
+		//Initial Update to graphs
+		updateGraphs();
 		
 		//Current thread to keep track of weather and time updates!
 		System.out.println("Clock started...");

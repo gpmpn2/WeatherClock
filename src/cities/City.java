@@ -1,5 +1,7 @@
 package cities;
 
+import java.util.ArrayList;
+
 import clock.Time;
 import weather.Weather;
 import weather.WeatherData;
@@ -19,6 +21,8 @@ public class City{
 	
 	private Weather currentWeather;
 	private String currentTime;
+	
+	private ArrayList<Integer> previousTemperatures = new ArrayList<>();
 	
 	public City(String cityName, String cityURL, String cityTimezone) {
 		this.cityName = cityName;
@@ -44,6 +48,10 @@ public class City{
 
 	public String getCityTime() {
 		return currentTime;
+	}
+	
+	public ArrayList<Integer> getPreviousTemperatures() {
+		return previousTemperatures;
 	}
 
 	/**

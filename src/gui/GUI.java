@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import clock.Time;
+import graph.Graph;
 import io.Start;
 import cities.City;
 
@@ -44,6 +45,8 @@ public class GUI extends JFrame{
 	private JLabel gifLower;
 	private int gifCounter = -290;
 	private int gifCounterLower = -290;
+	private Graph topGraph;
+	private Graph lowGraph;
 	
 	/**
 	 * Constructor for the GUI
@@ -108,6 +111,14 @@ public class GUI extends JFrame{
 		gifLower.setBounds(gifCounterLower, 360, 500, 50);
 		panel.add(gifLower);
 
+		topGraph = new Graph(100);
+		topGraph.setBounds(327, 35, 150, 145);
+		panel.add(topGraph);
+		
+		lowGraph = new Graph(100);
+		lowGraph.setBounds(327, 235, 150, 145);
+		panel.add(lowGraph);
+		
 		try {
 			BufferedImage myPicture = ImageIO.read(getClass().getResourceAsStream("data/1.png"));
 			topImageLabel = new JLabel(new ImageIcon(myPicture));
@@ -128,7 +139,6 @@ public class GUI extends JFrame{
 		
 		JLabel blockSet = new JLabel();
 		panel.add(blockSet);
-
 		
 		refresh();
 		
@@ -215,11 +225,11 @@ public class GUI extends JFrame{
 		
 		if(militaryTime >= 11 && militaryTime <= 13 && counter == 1) {
 			if(gifCounterLower >= 285) {
-				gifCounter = -290;
+				gifCounterLower = -290;
 			}
 			gifCounterLower += 1;
 			gifLower.setBounds(gifCounterLower, 360, 500, 50);
-		} else if (militaryTime < 11 || militaryTime > 13 && counter == 0) {
+		} else if (militaryTime < 11 || militaryTime > 13 && counter == 1) {
 			gifCounterLower = -290;
 			gifLower.setBounds(-400, 360, 500, 50);
 		}
@@ -236,6 +246,25 @@ public class GUI extends JFrame{
 		locations.get(counter*5 + 2).setForeground(color);
 		locations.get(counter*5 + 3).setForeground(color);
 		locations.get(counter*5 + 4).setForeground(color);
+		
+		if(counter == 0) {
+			((Graph) topGraph).setColor(color);
+		} else {
+			((Graph) lowGraph).setColor(color);
+		}
+	}
+
+	/**
+	 * Updates the graph based on the city
+	 * @param city
+	 * @param count
+	 */
+	public void updateGraph(City city, int count) {
+		if(count == 0) {
+			((Graph) topGraph).setPoints(city.getPreviousTemperatures());
+		} else {
+			((Graph) lowGraph).setPoints(city.getPreviousTemperatures());
+		}
 	}
 		
 }

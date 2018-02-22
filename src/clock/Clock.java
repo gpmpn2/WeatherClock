@@ -37,7 +37,6 @@ public class Clock implements Runnable{
 	 * Calls for a GUI update every second
 	 */
 	public void updateGUI() {
-		
 		//Lets update the weather and time here so we don't have to do it in multiple places
 		
 		tickCounter++;
@@ -48,8 +47,20 @@ public class Clock implements Runnable{
 		
 		
 		//Only update our weather every 30 seconds, honestly could probably set it to like every 2-3 minutes, but this is fine for now
-		if(tickCounter == 30) {
-			tickCounter = 0;
+		if(tickCounter % 30 == 0) {
+			
+			if(tickCounter == 3600) {
+				int count = 0;
+				for(City city : Start.cities) {
+					if(city.getPreviousTemperatures().size() == 7) {
+						city.getPreviousTemperatures().remove(6);
+					}
+					city.getPreviousTemperatures().add(0, (city.getCityWeather().isFarenheit() ? city.getCityWeather().getCurrentTemperature() : city.getCityWeather().getCurrentTemperatureConversion()));
+					Start.getGUI().updateGraph(city, count);
+					count++;
+				}
+				tickCounter = 0;
+			}
 			
 			//Asyncronous thread running to grab the weather as to not delay our thread that is updating our clock's
 			new Thread(() -> {
